@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Recherche de cartes Yu-Gi-Oh!</title>
+</head>
+<body>
+    <h1>Recherche de cartes Yu-Gi-Oh!</h1>
+
+    <form action="/search" method="get">
+        <label for="search">Recherche :</label>
+        <input type="text" id="search" name="q" placeholder="Nom de la carte ou du set" required>
+
+        <label for="type">Type de carte :</label>
+        <select id="type" name="type">
+            <option value="">Tous les types</option>
+            <option value="Monster" {% if request.args.get('type') == 'Monster' %}selected{% endif %}>Monstre</option>
+            <option value="Spell" {% if request.args.get('type') == 'Spell' %}selected{% endif %}>Magie</option>
+            <option value="Trap" {% if request.args.get('type') == 'Trap' %}selected{% endif %}>Piège</option>
+        </select>
+
+        <button type="submit">Chercher</button>
+    </form>
+
+    {% if results %}
+        <h2>Résultats de la recherche</h2>
+        
+        <h3>Cartes trouvées :</h3>
+        <ul>
+            {% for card in results.cards %}
+                <li>{{ card.name }} - {{ card.type }}</li>
+            {% endfor %}
+        </ul>
+
+        <h3>Sets trouvés :</h3>
+        <ul>
+            {% for set in results.sets %}
+                <li>{{ set.set_name }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucun résultat trouvé.</p>
+    {% endif %}
+</body>
+</html>

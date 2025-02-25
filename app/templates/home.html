@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+
+{% block content %}
+    <h1>Bienvenue sur Yu-Gi-Oh! Collection</h1>
+
+    <!-- Liens pour se connecter et s'inscrire -->
+    <div>
+        <a href="{{ url_for('main.login') }}" class="btn btn-primary">Se connecter</a>
+        <a href="{{ url_for('main.register') }}" class="btn btn-secondary">S'inscrire</a>
+    </div>
+
+    <div class="mt-4">*
+        <h2>Explorer les sections</h2>
+        <div class="d-flex justify-content-around">
+            <!-- Lien vers les cartes -->
+            <div class="section-link">
+                <a href="{{ url_for('main.get_cards') }}">
+                    <div class="icon-block">Cartes</div>
+                </a>
+            </div>
+
+            <!-- Lien vers la wishlist -->
+            <div class="section-link">
+                <a href="{{ url_for('main.get_wishlist', user_id=current_user.id) }}">
+                    <div class="icon-block">Wishlist</div>
+                </a>
+            </div>
+
+            <!-- Lien vers la collection -->
+            <div class="section-link">
+                <a href="{{ url_for('main.get_collection', user_id=current_user.id) }}">
+                    <div class="icon-block">Collection</div>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

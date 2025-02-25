@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Page d'Accueil - Yu-Gi-Oh!</title>
+</head>
+<body>
+    <h1>Bienvenue sur Yu-Gi-Oh! Collection</h1>
+
+    <div class="auth-links">
+        <a href="{{ url_for('main.login') }}" class="btn btn-primary">Se connecter</a>
+        <a href="{{ url_for('main.register') }}" class="btn btn-secondary">S'inscrire</a>
+    </div>
+
+    <p>Une fois connecté, vous pourrez accéder à votre collection de cartes Yu-Gi-Oh!</p>
+</body>
+</html>

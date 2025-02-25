@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Collection - Yu-Gi-Oh!</title>
+</head>
+<body>
+
+    <h2>Votre Collection de Cartes Yu-Gi-Oh!</h2>
+
+    <div class="cards-container">
+        {% for card in collection %}
+            <div class="card" onclick="openModal('{{ card.id }}', '{{ card.name }}', '{{ card.type }}', '{{ card.image_url }}', '{{ card.description }}')">
+                <h4>{{ card.name }}</h4>
+                <p class="card-id">ID: {{ card.id }}</p>
+                <p><strong>Type:</strong> {{ card.type }}</p>
+                
+                {% if card.image_url %}
+                    <img src="{{ card.image_url }}" alt="{{ card.name }}">
+                {% else %}
+                    <p>Image non disponible</p>
+                {% endif %}
+            </div>
+        {% else %}
+            <p>Aucune carte dans votre collection.</p>
+        {% endfor %}
+    </div>
+
+    <!-- POPUP MODAL -->
+    <div id="cardModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2 id="modal-title"></h2>
+            <p><strong>ID:</strong> <span id="modal-id"></span></p>
+            <p><strong>Type:</strong> <span id="modal-type"></span></p>
+            <img id="modal-image" src="" alt="">
+            <p id="modal-description"></p>
+        </div>
+    </div>
+
+    <script>
+        function openModal(id, name, type, imageUrl, description) {
+            document.getElementById("modal-title").innerText = name;
+            document.getElementById("modal-id").innerText = id;
+            document.getElementById("modal-type").innerText = type;
+            document.getElementById("modal-image").src = imageUrl;
+            document.getElementById("modal-description").innerText = description;
+            document.getElementById("cardModal").style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("cardModal").style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            let modal = document.getElementById("cardModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>
